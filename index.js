@@ -27,11 +27,11 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
- * 
+ *   counter 1 stores the function invocation having a global scope outside the function, whereas the counter 2 has it's own functional scope and it's not a variable.
  * 2. Which of the two uses a closure? How can you tell?
- * 
+ *  counter 1 has closure because it contains another function that manipulated the same data from the parent function. counter 2 has closure too because it reaches outside of it's function scope.
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ *counter 1 would be in a scenario where we want to increment count within a functional scope and counter2 in the global scope in the whole script.
 */
 
 // counter1 code
@@ -39,10 +39,13 @@ function counterMaker() {
   let count = 0;
   return function counter() {
    return count++;
+    
   }
 }
 
 const counter1 = counterMaker();
+
+
 
 // counter2 code
 let count = 0;
@@ -52,15 +55,19 @@ function counter2() {
 }
 
 
+
+
 /* Task 2: inning() 
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+  
+   let generator = Math.floor(Math.random() * 2);
+  
+  return generator;
 }
+
 
 /* Task 3: finalScore()
 
@@ -76,11 +83,21 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(callback, numIning){
+  
+    var score = { };
+  
+   let homeTeamScore = callback*numIning*2;
+   let awayTeamScore = callback*numIning;
+ 
+  score.Home = homeTeamScore;
+  score.Away = awayTeamScore;
+  
+    return score;
+};
 
-  /*Code Here*/
+finalScore(inning(), 9);
 
-}
 
 /* Task 4: 
 
@@ -103,8 +120,29 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+let inningsArray = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+function scoreboard(callback, numInings) {
+  
+  let scoreByInning = [];
+ 
+ 
+  
+  return inningsArray.forEach( function(value, index) {
+    
+    
+    console.log(`Value for loop ${value}, Index for loop ${index}`);
+    
+    let homeTeamScore = callback*value;
+    let awayTeamScore = callback*numInings[index];
+    scoreByInning.push(`innings: ${homeTeamScore} ` );
+  })  
+  
+ 
+
 }
+
+console.log(scoreboard(inning(), inningsArray))
+
 
 
